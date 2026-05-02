@@ -24,7 +24,6 @@ def plot_histograms(query, cohort) :
 	df = pd.read_sql_query(query, db_engine)
 	check_dataframe_columns(df, ['cluster', 'sex'])
 	#assert set(df['cluster']) == set(cluster_ordering)
-	print(df)
 
 	# Computing % for each cluster and sex
 	df['perc'] = df['count'] / df.groupby('cluster')['count'].transform('sum') * 100

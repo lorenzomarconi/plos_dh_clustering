@@ -178,7 +178,7 @@ def plot_insulin_cumulative_incidences() :
 		ax.set_xticks(np.arange(0, CLUSTERING_YEARS + 1, 1))
 		
 		# Set plot title and labels
-		plt.title(f'Insulin culumative incidence ({cohort})')
+		plt.title(f'Insulin cumulative incidence ({cohort})')
 		plt.suptitle('')  # Remove the default title to avoid overlap
 		plt.xlabel('years')
 		plt.ylabel('subjects %')

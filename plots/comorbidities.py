@@ -74,7 +74,7 @@ def plot_comorbidities_cumulative_incidences() :
 			ax.set_yticks(np.arange(0, 21, 5))
 
 			# Set plot title and labels
-			plt.title(f'{ucfirst(comorbidity)} culumative incidence ({cohort})')
+			plt.title(f'{ucfirst(comorbidity)} cumulative incidence ({cohort})')
 			plt.suptitle('')  # Remove the default title to avoid overlap
 			plt.xlabel('years')
 			plt.ylabel('subjects %')
