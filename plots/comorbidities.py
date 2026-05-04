@@ -7,8 +7,8 @@ import numpy as np
 
 def plot_comorbidities_cumulative_incidences() :
 	for comorbidity, plot_limit_y in [(NEPHROPATHY_TABLE, 22), (RETINOPATHY_TABLE, 35)] :
-
 		for cohort in ['CC', 'NC'] :
+			logger.info(f'Plotting cumulative incidence of {comorbidity} for cohort {cohort}')
 			cluster_table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 			comorbidity_table_name = f'{CLUSTERING_DB_NAME}.{comorbidity}'
 			

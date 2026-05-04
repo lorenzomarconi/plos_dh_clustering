@@ -6,6 +6,7 @@ import numpy as np
 
 def plot_insulin_cumulative_incidences() :
 	for cohort in ['CC', 'NC'] :
+		logger.info(f'Plotting cumulative incidence of insuline prescriptions for cohort {cohort}')
 		table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		
 		query = f'''

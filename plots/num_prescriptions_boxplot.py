@@ -110,6 +110,7 @@ def plot_boxplots(query, cohort) :
 # Exported function
 def plot_num_prescriptions_boxplots() :
 	for cohort in ['CC', 'NC'] :
+		logger.info(f'Making boxplot about number of prescriptions for cohort {cohort}')
 		cluster_table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		query = f'''
 			WITH clusters AS (

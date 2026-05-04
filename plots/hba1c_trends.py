@@ -1,9 +1,9 @@
-from _utils import get_data_filepath, CLUSTERING_YEARS
+from _utils import get_data_filepath, logger, CLUSTERING_YEARS
 from plots._utils import *
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def polt_trends(cohort, show_standard_deviation=False) :
+def plot_trends(cohort, show_standard_deviation=False) :
 	# Read the CSV file
 	data = pd.read_csv(get_data_filepath(f'clusters_{ cohort }.csv'), header=0)
 	data.drop(['idcentro', 'idana', 'annoinizio'], axis=1, inplace=True)
@@ -67,4 +67,5 @@ def polt_trends(cohort, show_standard_deviation=False) :
 # Exported function
 def plot_hba1c_trends() :
 	for cohort in ['CC', 'NC'] :
-		polt_trends(cohort)
+		logger.info(f'Plotting HbA1c trends for cohort {cohort}')
+		plot_trends(cohort)

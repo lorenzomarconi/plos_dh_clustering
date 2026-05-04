@@ -1,4 +1,4 @@
-from _utils import db_engine, CLUSTERING_DB_NAME, COLOR
+from _utils import db_engine, logger, CLUSTERING_DB_NAME, COLOR
 from plots._utils import *
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -111,6 +111,7 @@ def plot_boxplots(query, cohort) :
 # Exported function
 def plot_bmi_boxplots() :
 	for cohort in ['CC', 'NC'] :
+		logger.info(f'Making BMI boxplot for cohort {cohort}')
 		cluster_table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		query = f'''
 			SELECT

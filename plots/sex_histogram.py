@@ -1,4 +1,4 @@
-from _utils import db_engine, CLUSTERING_DB_NAME
+from _utils import db_engine, logger, CLUSTERING_DB_NAME
 from plots._utils import *
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -120,6 +120,7 @@ def plot_histograms(query, cohort) :
 # Exported function
 def plot_sex_histograms() :
 	for cohort in ['CC', 'NC'] :
+		logger.info(f'Making sex histogram for cohort {cohort}')
 		cluster_table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		total_query = f'''
 			UNION ALL

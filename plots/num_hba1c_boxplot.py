@@ -110,6 +110,7 @@ def plot_boxplots(query, cohort) :
 # Exported function
 def plot_num_hba1c_boxplots() :
 	for cohort in ['CC', 'NC'] :
+		logger.info(f'Making boxplot about number of HbA1c measures for cohort {cohort}')
 		cluster_table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		query = f'''
 			WITH clusters AS (
