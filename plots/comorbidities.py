@@ -71,7 +71,7 @@ def plot_comorbidities_cumulative_incidences() :
 			# Set ticks from 0 to 10 each 1 units
 			ax = plt.gca()
 			ax.set_xticks(np.arange(0, CLUSTERING_YEARS + 1, 1))
-			ax.set_yticks(np.arange(0, 21, 5))
+			ax.set_yticks(np.arange(0, plot_limit_y + 1, 5))
 
 			# Set plot title and labels
 			plt.title(f'{ucfirst(comorbidity)} cumulative incidence ({cohort})')
