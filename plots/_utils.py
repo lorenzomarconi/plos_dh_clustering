@@ -35,9 +35,9 @@ cluster_markers = {
 
 cluster_linestyles = {
     'controlled':            '-', 	
-    'moderately controlled': ':', 	
-    'uncontrolled wci':      '--', 	
-    'uncontrolled':          '-.',
+    'moderately controlled': '--', 	
+    'uncontrolled wci':      '-.', 	
+    'uncontrolled':          ':',
 }
 
 cluster_multiline_labels = {
