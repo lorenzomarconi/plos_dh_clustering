@@ -20,10 +20,10 @@ cluster_colors = {
 	'uncontrolled wci': 'black',
 	'uncontrolled': 'black',
 } if COLOR == 'bw' else {
-	'controlled': '#4CAF50',
-	'moderately controlled': '#FFEB3B',
-	'uncontrolled wci': '#FF9800',
-	'uncontrolled': '#F44336',
+    'controlled': "#198120",
+    'moderately controlled': '#FDD835',
+    'uncontrolled wci': '#FB8C00',
+    'uncontrolled': '#B71C1C',
 }
 
 cluster_markers = {
