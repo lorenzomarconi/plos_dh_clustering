@@ -38,11 +38,6 @@ cluster_linestyles = {
     'moderately controlled': ':', 	
     'uncontrolled wci':      '--', 	
     'uncontrolled':          '-.',
-} if COLOR == 'bw' else {
-    'controlled':            '-', 	
-    'moderately controlled': '-', 	
-    'uncontrolled wci':      '-',	
-    'uncontrolled':          '-',
 }
 
 cluster_multiline_labels = {
