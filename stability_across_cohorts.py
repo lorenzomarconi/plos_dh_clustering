@@ -216,10 +216,10 @@ def run_stability_for_cohort(cohort, other_suffix, k, n_inits=N_INIT_RUNS, max_i
 
 	# manually check mean of means of time series data
 	# to map the cluster index to the right label
-	print(sums1a / n_runs)
-	print(sums1b / n_runs)
-	print(sums2a / n_runs)
-	print(sums2b / n_runs)
+	logger.info(sums1a / n_runs)
+	logger.info(sums1b / n_runs)
+	logger.info(sums2a / n_runs)
+	logger.info(sums2b / n_runs)
 
 	# 4) saving reports and artifacts
 	summary = {
