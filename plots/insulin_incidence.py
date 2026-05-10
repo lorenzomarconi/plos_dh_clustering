@@ -1,10 +1,11 @@
 from _utils import *
+from materialization import materialize_dataset
 from plots._utils import *
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_insulin_cumulative_incidences() :
+def plot_insulin_cumulative_incidences(store_tti = False) :
 	for cohort in ['CC', 'NC'] :
 		logger.info(f'Plotting cumulative incidence of insuline prescriptions for cohort {cohort}')
 		table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
@@ -130,6 +131,30 @@ def plot_insulin_cumulative_incidences() :
 			'''
 
 			return build_result(sorted_group.iloc[0]['insulin_prescr_date'])
+
+		def store_time_to_insulin(df) :
+			output_table_name = "time_to_insulin"
+
+			df_to_save = df[[
+				'idcentro',
+				'idana',
+				'insulin_start_date',
+				'time_to_insulin_days'
+			]].copy()
+			df_to_save['time_to_insulin_days'] = df_to_save['time_to_insulin_days'].astype('Int64')
+
+			materialize_dataset(
+				df=df_to_save,
+				table_name=output_table_name,
+				attribute2datatype={
+					'idcentro': 'INTEGER',
+					'idana': 'INTEGER',
+					'insulin_start_date': 'DATE',
+					'time_to_insulin_days': 'INTEGER'
+				},
+				create_index_on_patient_key=True
+			)
+			logger.info(f"Saved time to insulin to {CLUSTERING_DB_NAME}.{output_table_name}")
 		
 		grouping_columns = ['idcentro', 'idana', 'cluster', 'cl_start_date']
 		df = (df.groupby(grouping_columns)
@@ -139,11 +164,13 @@ def plot_insulin_cumulative_incidences() :
 				.reset_index()
 				.rename(columns={0: 'insulin_start_date'}))
 		
-		df['time_to_insulin_year_fraction'] = (
-			(df['insulin_start_date'] - df['cl_start_date']).dt.days / 365.25
-		)
-		df.sort_values(by=['cluster','time_to_insulin_year_fraction'], inplace=True)
+		df['time_to_insulin_days'] = (df['insulin_start_date'] - df['cl_start_date']).dt.days
+		df['time_to_insulin_year_fraction'] = df['time_to_insulin_days'] / 365.25
 
+		if cohort == 'CC' and store_tti :
+			store_time_to_insulin(df)
+
+		df.sort_values(by=['cluster','time_to_insulin_year_fraction'], inplace=True)
 		cumulative_incidence = df.groupby('cluster').apply(
 			lambda g: g['time_to_insulin_year_fraction'].notnull().cumsum()
 		).reset_index(level=0, drop=True)
