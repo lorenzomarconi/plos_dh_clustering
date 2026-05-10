@@ -19,7 +19,7 @@ def materialize_dataset(
     full_table_name = CLUSTERING_DB_NAME + "." + table_name 
 
     logger.info(f"Materializing data to table '{ full_table_name }'")
-    if df == None :
+    if df is None :
         df = pd.read_csv(csv_filepath, dtype=csv_dtype, header=csv_header)
     assert len(attribute2datatype) == df.shape[1]
 
