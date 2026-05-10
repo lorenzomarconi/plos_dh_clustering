@@ -34,8 +34,6 @@ pip install matplotlib
 pip install h5py
 ```
 
-You also need access to a PostgreSQL database and permission to read from and write to the configured schema.
-
 ## Configuration
 
 Edit `config.ini` before running the pipeline.
@@ -47,7 +45,6 @@ Important settings include:
 - `clustering.clustering_years`
 - `clustering.n_clusters`
 - `io.data_dir`
-- `io.color`
 - `io.clustering_schema`
 - PostgreSQL connection details in the `[database]` section
 
@@ -81,7 +78,7 @@ python main.py --steps all
 
 ## Outputs
 
-Typical outputs include:
+Outputs include:
 
 - Intermediate CSV files in the configured data directory
 - Cluster CSV files for the `CC` and `NC` cohorts
