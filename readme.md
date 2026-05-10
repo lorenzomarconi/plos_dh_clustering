@@ -19,7 +19,7 @@ Available steps are:
 - `comorbidities`: Performs the comorbidity analysis and stores the information into PostgreSQL tables.
 - `final_plots`: Produces summary plots for the final analysis.
 
-The steps run in the same order as above.
+By default, the steps run in the same order as above.
 
 ## Requirements
 
