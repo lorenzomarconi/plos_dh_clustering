@@ -38,7 +38,7 @@ def plot_trends(cohort, show_standard_deviation=False) :
 				marker=cluster_markers[cluster],
 				label=label,
 				color=color,
-				linestyle=cluster_linestyles[cluster]
+				#linestyle=cluster_linestyles[cluster]
 			)
 	
 	# Plot horizontal lines at multiples of 10%
