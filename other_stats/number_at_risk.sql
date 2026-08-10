@@ -47,7 +47,7 @@ ORDER BY cluster, t.years
 ;
 
 ------------------------
--- Insuline prescription
+-- Insulin prescription
 ------------------------
 WITH timepoints AS (
     SELECT 0 AS years

@@ -7,7 +7,7 @@ import numpy as np
 
 def plot_insulin_cumulative_incidences(store_tti = False) :
 	for cohort in ['CC', 'NC'] :
-		logger.info(f'Plotting cumulative incidence of insuline prescriptions for cohort {cohort}')
+		logger.info(f'Plotting cumulative incidence of insulin prescriptions for cohort {cohort}')
 		table_name = f'{CLUSTERING_DB_NAME}.clusters_{cohort.lower()}'
 		
 		query = f'''
@@ -41,13 +41,12 @@ def plot_insulin_cumulative_incidences(store_tti = False) :
 				clusters.cluster,
 				clusters.start_date AS cl_start_date,
 				EXTRACT(YEAR FROM clusters.end_date) AS cl_end_year,
-				first_insulin_prescription.date AS first_insulin_date,
+				fp.date AS first_insulin_date,
 				pre.data AS insulin_prescr_date
 			FROM clusters
 			LEFT OUTER JOIN insulin_prescriptions_during_cluster_period pre USING (idcentro, idana)
-			LEFT OUTER JOIN first_insulin_prescription USING (idcentro, idana)
-			WHERE first_insulin_prescription.date IS NULL OR
-			      first_insulin_prescription.date >= clusters.start_date
+			LEFT OUTER JOIN first_insulin_prescription fp USING (idcentro, idana)
+			WHERE clusters.start_date <= fp.date OR fp.date IS NULL
 			ORDER BY cluster, idcentro, idana, insulin_prescr_date;'''
 		
 		df = pd.read_sql_query(query, db_engine)
@@ -60,7 +59,7 @@ def plot_insulin_cumulative_incidences(store_tti = False) :
 		df["first_insulin_date"]  = pd.to_datetime(df["first_insulin_date"])
 		df["insulin_prescr_date"] = pd.to_datetime(df["insulin_prescr_date"])
 
-		def has_consistent_insuline_prescription_history(group, years_tolerance=1) :
+		def has_consistent_insulin_prescription_history(group, years_tolerance=1) :
 			"""
 			Parameters:
 				group: The group representing the history of prescriptions of a subject.
@@ -68,7 +67,7 @@ def plot_insulin_cumulative_incidences(store_tti = False) :
 				                       between two subsequent prescriptions.
 
 			Returns:
-				bool: True if the group contains a "consistent" series of insuline prescriptions;
+				bool: True if the group contains a "consistent" series of insulin prescriptions;
 				      False if the subject must be excluded from the statistics.
 			"""
 			
@@ -94,9 +93,9 @@ def plot_insulin_cumulative_incidences(store_tti = False) :
 
 			return True
 
-		def get_insuline_start_date(group) :
+		def get_insulin_start_date(group) :
 			"""
-			This function retrieves the date of the first insuline prescription in the
+			This function retrieves the date of the first insulin prescription in the
 			clustering period for the given subject.
 			
 			Parameters:
@@ -158,9 +157,9 @@ def plot_insulin_cumulative_incidences(store_tti = False) :
 		
 		grouping_columns = ['idcentro', 'idana', 'cluster', 'cl_start_date']
 		df = (df.groupby(grouping_columns)
-				.filter(has_consistent_insuline_prescription_history)
+				.filter(has_consistent_insulin_prescription_history)
 				.groupby(grouping_columns)
-				.apply(get_insuline_start_date)
+				.apply(get_insulin_start_date)
 				.reset_index()
 				.rename(columns={0: 'insulin_start_date'}))
 		
