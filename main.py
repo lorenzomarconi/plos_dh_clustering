@@ -60,13 +60,13 @@ def step_final_plots() :
 
 STEPS = {
     "initial_cohort_count": step_initial_cohort_count,
-    "compute_cohorts": step_compute_cohorts,
-    "elbow_method": step_elbow_method,
-    "compute_clusters": step_compute_clusters,
-    "plot_hba1c_trends": step_plot_hba1c_trends,
+    "compute_cohorts":      step_compute_cohorts,
+    "elbow_method":         step_elbow_method,
+    "compute_clusters":     step_compute_clusters,
+    "plot_hba1c_trends":    step_plot_hba1c_trends,
     "materialize_clusters": step_materialize_clusters,
-    "comorbidities": step_comorbidities,
-    "final_plots": step_final_plots
+    "comorbidities":        step_comorbidities,
+    "final_plots":          step_final_plots
 }
 
 def parse_steps(raw_steps) :
